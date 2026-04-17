@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/01.Api/">
+    <Project Path="Api.Reports/Api.Reports.csproj" />
+  </Folder>
+</Solution>
