@@ -2,8 +2,12 @@
   <Folder Name="/01.Api/">
     <Project Path="Api.Reports/Api.Reports.csproj" />
   </Folder>
-  <Folder Name="/02. Application/" />
-  <Folder Name="/03.Domain/" />
+  <Folder Name="/02. Application/">
+    <Project Path="reports.application/reports.application.csproj" Id="a841c6a8-983e-4693-adb4-600bb75ae224" />
+  </Folder>
+  <Folder Name="/03.Domain/">
+    <Project Path="reports.domain/reports.domain.csproj" Id="dc54a6b7-44f7-429d-a437-e1e78c1a7df5" />
+  </Folder>
   <Folder Name="/04.Infrastructure/">
     <Project Path="reports.infrastructure/reports.infrastructure.csproj" Id="bf05fc59-46c1-4cf3-bbda-76e246ae883b" />
   </Folder>

@@ -54,3 +54,7 @@ TestResult.xml
 nunit-*.xml
 /.vs/Reports.slnx
 /Api.Reports/appsettings.Local.json
+/.vs/Reports/CopilotIndices/18.6.39495.22055/CodeChunks.db-wal
+/.vs/Reports/CopilotIndices/18.6.39495.22055/SemanticSymbols.db-wal
+/.vs/Reports/CopilotIndices/18.6.39495.22055/CodeChunks.db
+/.vs/Reports/CopilotIndices/18.6.39495.22055/SemanticSymbols.db

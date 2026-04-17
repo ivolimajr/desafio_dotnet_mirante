@@ -1,5 +1,9 @@
+using Api.Reports.Extensions;
 using Microsoft.EntityFrameworkCore;
+using reports.application.Services;
+using reports.domain.Interfaces;
 using reports.infrastructure.Data.Context;
+using reports.infrastructure.Repositories;
 
 namespace Api.Reports
 {
@@ -12,17 +16,14 @@ namespace Api.Reports
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
 
-
-            //Debug TODO:Remover após testes
-            Console.WriteLine("Connection:" + builder.Configuration.GetConnectionString("DefaultConnection"));
-
-
             builder.Services.AddDbContext<PostgresContext>(options =>
                 options.UseNpgsql(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
                     npgsqlOptions => npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "mirante-reports")
             ));
 
+            builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+            builder.Services.AddTransient<ITaskService, TaskService>();
 
             var app = builder.Build();
 
@@ -42,6 +43,7 @@ namespace Api.Reports
                 app.UseHttpsRedirection();
             }
 
+            app.ApplyMigrations();
             app.UseAuthorization();
 
             app.MapControllers();
