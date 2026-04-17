@@ -1,5 +1,7 @@
-﻿using reports.application.Requests.Reports;
+﻿using Microsoft.VisualBasic;
+using reports.application.Requests.Reports;
 using reports.application.Requests.Tasks;
+using reports.application.Responses;
 using reports.application.Responses.Tasks;
 using reports.domain.Common;
 using reports.domain.Entities;
@@ -25,7 +27,7 @@ public class TaskService : ITaskService
             Id = Guid.NewGuid(),
             Title = request.Title,
             Description = request.Description,
-            DueDate = request.DueDate,
+            DueDate = DateTime.SpecifyKind(request.DueDate, DateTimeKind.Utc),
             Priority = request.Priority,
             Responsible = request.Responsible,
             CreatedAt = DateTime.UtcNow
@@ -74,7 +76,7 @@ public class TaskService : ITaskService
         entity.Title = request.Title;
         entity.Description = request.Description;
         entity.Status = request.Status;
-        entity.DueDate = request.DueDate;
+        entity.DueDate = DateTime.SpecifyKind(request.DueDate, DateTimeKind.Utc);
         entity.Priority = request.Priority;
         entity.Responsible = request.Responsible;
         entity.CompletedAt = request.Status == TaskStatusEnum.Completed
@@ -132,6 +134,28 @@ public class TaskService : ITaskService
         {
             AverageDaysToComplete = average
         };
+    }
+
+    public IEnumerable<EnumItemResponse> GetTaskStatus()
+    {
+        return Enum.GetValues<TaskStatusEnum>()
+                       .Cast<TaskStatusEnum>()
+                       .Select(x => new EnumItemResponse
+                       {
+                           Id = (int)x,
+                           Name = x.ToString()
+                       });
+    }
+
+    public IEnumerable<EnumItemResponse> GetTaskPriority()
+    {
+        return Enum.GetValues<TaskPriorityEnum>()
+                       .Cast<TaskPriorityEnum>()
+                       .Select(x => new EnumItemResponse
+                       {
+                           Id = (int)x,
+                           Name = x.ToString()
+                       });
     }
 
     private static TaskResponse Map(TaskItem entity)

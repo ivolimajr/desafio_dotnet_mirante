@@ -1,5 +1,6 @@
 ﻿using reports.application.Requests.Reports;
 using reports.application.Requests.Tasks;
+using reports.application.Responses;
 using reports.application.Responses.Tasks;
 using reports.domain.Common;
 using reports.domain.Filters;
@@ -18,5 +19,8 @@ namespace reports.application.Services
         Task<IEnumerable<TasksByResponsibleResponse>> GetTasksByResponsibleAsync(CancellationToken cancellationToken = default);
         Task<IEnumerable<OverdueTaskResponse>> GetOverdueTasksAsync(CancellationToken cancellationToken = default);
         Task<AverageCompletionTimeResponse> GetAverageCompletionTimeAsync(CancellationToken cancellationToken = default);
+
+        IEnumerable<EnumItemResponse> GetTaskStatus();
+        IEnumerable<EnumItemResponse> GetTaskPriority();
     }
 }
