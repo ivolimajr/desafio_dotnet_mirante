@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using shop.infrastructure.Data.Context;
+
 namespace Api.Reports
 {
     public class Program
@@ -9,6 +12,18 @@ namespace Api.Reports
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
 
+
+            //Debug TODO:Remover após testes
+            Console.WriteLine("Connection:" + builder.Configuration.GetConnectionString("DefaultConnection"));
+
+
+            builder.Services.AddDbContext<PostgresContext>(options =>
+                options.UseNpgsql(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    npgsqlOptions => npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "shop")
+            ));
+
+
             var app = builder.Build();
 
             app.MapOpenApi();
@@ -18,6 +33,9 @@ namespace Api.Reports
                 options.SwaggerEndpoint("/openapi/v1.json", "CQRS API v1");
                 options.RoutePrefix = "swagger";
             });
+
+
+            Console.WriteLine("Api Running...." + app.Environment.EnvironmentName);
 
             if (app.Environment.IsDevelopment())
             {
