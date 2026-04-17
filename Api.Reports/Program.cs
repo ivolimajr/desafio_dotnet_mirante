@@ -26,12 +26,16 @@ namespace Api.Reports
             builder.Services.AddScoped<ITaskRepository, TaskRepository>();
             builder.Services.AddTransient<ITaskService, TaskService>();
 
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
+
             var app = builder.Build();
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+            app.UseForwardedHeaders();
 
             app.MapOpenApi();
 
@@ -41,7 +45,6 @@ namespace Api.Reports
                 options.RoutePrefix = "swagger";
             });
 
-
             Console.WriteLine("Api Running...." + app.Environment.EnvironmentName);
 
             if (app.Environment.IsDevelopment())
@@ -50,9 +53,7 @@ namespace Api.Reports
             }
 
             app.ApplyMigrations().GetAwaiter().GetResult();
-
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.MapGet("/", () => Results.Redirect("/swagger"));
