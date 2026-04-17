@@ -45,6 +45,8 @@ namespace Api.Reports
                 options.RoutePrefix = "swagger";
             });
 
+            //Todo: Remover após os testes
+            Console.WriteLine("ConnString: " + builder.Configuration.GetConnectionString("DefaultConnection"));
             Console.WriteLine("Api Running...." + app.Environment.EnvironmentName);
 
             if (app.Environment.IsDevelopment())
