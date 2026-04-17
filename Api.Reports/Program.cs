@@ -43,7 +43,8 @@ namespace Api.Reports
                 app.UseHttpsRedirection();
             }
 
-            app.ApplyMigrations();
+            app.ApplyMigrations().GetAwaiter().GetResult();
+
             app.UseAuthorization();
 
             app.MapControllers();
