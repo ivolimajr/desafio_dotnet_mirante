@@ -1,4 +1,5 @@
 using Api.Reports.Extensions;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using reports.application.Services;
 using reports.domain.Interfaces;
@@ -26,6 +27,11 @@ namespace Api.Reports
             builder.Services.AddTransient<ITaskService, TaskService>();
 
             var app = builder.Build();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.MapOpenApi();
 
