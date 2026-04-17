@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using shop.infrastructure.Data.Context;
+using reports.infrastructure.Data.Context;
 
 namespace Api.Reports
 {
@@ -20,7 +20,7 @@ namespace Api.Reports
             builder.Services.AddDbContext<PostgresContext>(options =>
                 options.UseNpgsql(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
-                    npgsqlOptions => npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "shop")
+                    npgsqlOptions => npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "mirante-reports")
             ));
 
 

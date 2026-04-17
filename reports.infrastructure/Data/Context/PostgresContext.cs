@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace shop.infrastructure.Data.Context
+namespace reports.infrastructure.Data.Context
 {
     public class PostgresContext(DbContextOptions<PostgresContext> options) : DbContext(options)
     {
